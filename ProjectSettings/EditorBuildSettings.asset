@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/typing-sentence-task/program/scene-get-id/scene-get-id.unity
+    guid: abf1825b130e64fe1919bd7421911d03
+  - enabled: 1
+    path: Assets/typing-sentence-task/program/scene-Wait-Mri/scene-WaitMri.unity
+    guid: 60a5d921ae5d04d60a35abbc04277cfb
+  - enabled: 1
+    path: Assets/typing-sentence-task/program/scene-task/scene-task.unity
+    guid: db5d0ee9153a747e5a520a019cc26fdd
   m_configObjects: {}
