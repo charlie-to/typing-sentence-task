@@ -1,5 +1,13 @@
 {
     "cSpell.words": [
-        "Behaviour"
-    ]
+        "Behaviour",
+        "Fixd"
+    ],
+    "omnisharp.useGlobalMono": "always",
+    "omnisharp.monoPath": "/Library/Frameworks/Mono.framework/Versions/Current",
+    "omnisharp.useModernNet": false,
+    "[csharp]": {
+        "editor.maxTokenizationLineLength": 2500,
+        "editor.formatOnSave": true,
+    }
 }
