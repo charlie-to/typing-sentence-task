@@ -6,7 +6,7 @@ using System.Linq;
 // 被験者の情報を格納するクラス
 public class Participant
 {
-    readonly int id; // 被験者のID
+    public int id; // 被験者のID
 
     //　被験者番号が正しいかどうかをLuhn formulaで判定する
     public bool IsValidId(int id)
