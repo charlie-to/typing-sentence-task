@@ -4,7 +4,7 @@
         "Fixd"
     ],
     "omnisharp.useGlobalMono": "always",
-    "omnisharp.monoPath": "/Library/Frameworks/Mono.framework/Versions/Current",
+    "omnisharp.monoPath": "/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono",
     "omnisharp.useModernNet": false,
     "[csharp]": {
         "editor.maxTokenizationLineLength": 2500,

@@ -1,16 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WaitKey : MonoBehaviour
 {
-    // Update is called once per frame
-    void Update()
+    public void OnEnable()
     {
-        // ５が入力されたら次のシーンに遷移
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        // イベントの登録
+        Keyboard.current.onTextInput += OnTextInput;
+    }
+    public void OnDisable()
+    {
+        // イベントの登録解除
+        Keyboard.current.onTextInput -= OnTextInput;
+    }
+    public void OnTextInput(char ch)
+    {
+        // 入力が５の時にシーンを遷移
+        if (ch == '5')
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("scene-task");
+            Debug.Log("5 is Pressed");
+            SceneManager.LoadScene("scene-task");
         }
     }
 }
