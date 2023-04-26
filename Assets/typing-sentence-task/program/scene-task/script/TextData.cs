@@ -9,14 +9,17 @@ using UnityEngine.InputSystem;
 public class TextData
 {
     // 一行の長さ
-    static readonly int lineNum = 30;
+    static readonly int lineNum = 45;
+    // 表示する最大の行数
+    static readonly int MaxLineNum = 12;
     // 最後の一行
     public string Line { get; set; } = "";
 
     // 最後の一行以外を保管する配列
-    public List<string> Lines { get; set; } = new List<string>();
+    public List<string> Lines { get; set; } = new List<string>(MaxLineNum);
     // 入力している文字数
     private int LetterCount { get; set; } = 0;
+
 
 
     //入力された文字を受け取る
@@ -83,7 +86,15 @@ public class TextData
         // Debug.Log(Lines.Count);
         if (Lines.Count != 0)
         {
-            foreach (var line in Lines)
+            //DisplayLineを作成
+            var DisplayLines = Lines;
+            if (Lines.Count > MaxLineNum - 1)
+            {
+                DisplayLines = DisplayLines.GetRange(Lines.Count - MaxLineNum + 1, MaxLineNum - 1);
+            }
+            Debug.Log(DisplayLines);
+
+            foreach (var line in DisplayLines)
             {
                 str += line.ToString();
                 str += "\n";

@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
         "Behaviour",
-        "Fixd"
+        "Fixd",
+        "UGUI"
     ],
     "omnisharp.useGlobalMono": "always",
     "omnisharp.monoPath": "/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono",
