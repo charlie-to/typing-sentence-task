@@ -605,4 +605,5 @@ Temporary Items
 ### 外部アセットを公開しない
 /Assets/*
 !/Assets/typing-sentence-task*
+!/Assets/InputLogs*
 
