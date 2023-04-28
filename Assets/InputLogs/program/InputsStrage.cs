@@ -1,49 +1,52 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Assets.InputLogs.program
+namespace InputLogs.program
 {
     // １つのタスクに対してのInputDatumを複数保持するクラス
     [Serializable]
     public class InputsStorage
     {
         // タスクの名前
-        public readonly string taskName;
+        public readonly string TaskName;
         // タスクに対してのInputDatumのリスト
+        // ReSharper disable once IdentifierTypo
         public List<InputDatum> inputDatas;
         // タスクの開始時間
         public DateTime startTime;
         // タスクの終了時間
         public DateTime endTime;
         // 被験者のID
-        public readonly string participantId;
+        public readonly string ParticipantId;
         // タスクの状態
         public TaskState taskState = TaskState.NotYet;
+        // 保存関係のクラス
+        public InputStorageSaver InputStorageSaver;
 
         // シングルトンを実装
-        public static InputsStorage Instance { get; private set; }
+        public static InputsStorage instance { get; private set; }
 
         // コンストラクタ
-        public InputsStorage(string taskName, string participantId)
+        public InputsStorage(string taskName, string participantId, string outFilePath)
         {
-            if (Instance != null)
+            if (instance != null)
             {
                 return;
             }
-            this.taskName = taskName;
-            this.participantId = participantId;
+            this.TaskName = taskName;
+            this.ParticipantId = participantId;
             inputDatas = new List<InputDatum>();
+            InputStorageSaver = new InputStorageSaver(outFilePath);
         }
 
         // インスタンスの取得
-        public static InputsStorage GetInstance()
+        public static InputsStorage GetInstance(string taskName, string participantId, string outFilePath)
         {
-            if (Instance != null)
+            if (instance != null)
             {
-                return Instance;
+                return instance;
             }
+            instance = new InputsStorage(taskName, participantId, outFilePath);
             return null;
         }
 

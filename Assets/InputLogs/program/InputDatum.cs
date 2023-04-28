@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Assets.InputLogs.program
+namespace InputLogs.program
 {
     // 入力したキーと時間を保持するクラス
     [Serializable]

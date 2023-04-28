@@ -16,7 +16,8 @@ public class WaitKey : MonoBehaviour
         // イベントの登録解除
         Keyboard.current.onTextInput -= OnTextInput;
     }
-    public void OnTextInput(char ch)
+
+    private void OnTextInput(char ch)
     {
         // 入力が５の時にシーンを遷移
         if (ch == '5')

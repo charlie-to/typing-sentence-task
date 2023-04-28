@@ -1,34 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskManager : MonoBehaviour
+namespace typing_sentence_task.program.scene_task.script
 {
-    // InputTextのインスタンス
-    [SerializeField]
-    private InputText inputText;
-
-    // シングルトンを実装
-    public static TaskManager Instance { get; private set; }
-    // インスタンスがあれば削除
-    private void Awake()
+    public class TaskManager : MonoBehaviour
     {
-        if (Instance != null)
+        // InputTextのインスタンス
+        [SerializeField]
+        private InputText inputText;
+
+        // シングルトンを実装
+        public static TaskManager Instance { get; private set; }
+        // インスタンスがあれば削除
+        private void Awake()
         {
-            return;
+            if (Instance != null)
+            {
+                return;
+            }
+            Instance = this;
         }
-        Instance = this;
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        inputText = GetComponent<InputText>();
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            inputText = GetComponent<InputText>();
+        }
 
-    public void EndTask()
-    {
-        Debug.Log("EndTask");
-        inputText.saveTaskInputData.Save(inputText.inputsStorage);
+        public void EndTask()
+        {
+            Debug.Log("EndTask");
+            inputText.inputsStorage.InputStorageSaver.Save(inputText.inputsStorage);
+        }
     }
 }

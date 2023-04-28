@@ -1,110 +1,98 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using InputLogs.program;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using TMPro;
-using Assets.InputLogs.program;
-using System.Text.RegularExpressions;
-public class InputText : MonoBehaviour
+
+namespace typing_sentence_task.program.scene_task.script
 {
-    public TextMeshProUGUI textMesh;
-    //入力したテキスト
-    public TextData TextData { get; set; }
-
-    // インプットロガーのインスタンス
-    public InputsStorage inputsStorage;
-    // タスクのセーバー
-    public SaveTaskInputData saveTaskInputData;
-
-
-    // Start is called before the first frame update
-    void Start()
+    public class InputText : MonoBehaviour
     {
-        TextData = new TextData();
-        // セーブするためのインスタンスを作成
-        inputsStorage = new InputsStorage("InputText", "test");
-        saveTaskInputData = new SaveTaskInputData("/Out/Logs/");
-    }
+        public TextMeshProUGUI textMesh;
+        //入力したテキスト
+        public TextData textData { get; set; }
 
-    public void OnEnable()
-    {
-        // イベントの登録
-        Keyboard.current.onTextInput += OnTextInput;
-    }
-    public void OnDisable()
-    {
-        // イベントの登録解除
-        Keyboard.current.onTextInput -= OnTextInput;
-    }
-    public void OnTextInput(char ch)
-    {
-        // 入力した文字を表示
-        Debug.Log($"{(int)ch:x4}");
-        // // backspaceなら文字を削除
-        // if (ch == '\u007F')
-        // {
-        //     TextData.DeleteChar();
-        //     // InputDatumを追加
-        //     inputsStorage.AddInputDatum("Backspace");
-        //     return;
-        // }
-        // // 改行ならLineをLinesに追加して初期化
-        // if (ch == '\u000d')
-        // {
-        //     TextData.NextLine();
-        //     // InputDatumを追加
-        //     inputsStorage.AddInputDatum("Enter");
-        //     return;
-        // }
-        // 基本的なラテン文字なら文字を追加
-        if (!(Regex.IsMatch(ch.ToString(), @"\p{P}\d")) && ch != '\u000d' && ch != '\u007F' && ch != '\u001B' && ch != '\u0020')
+        // インプットロガーのインスタンス
+        public InputsStorage inputsStorage { get; set; }
+
+        void Start()
         {
-            TextData.AddChar(ch);
+            textData = new TextData();
+            // セーブするためのインスタンスを作成
+            inputsStorage = new InputsStorage("InputText", "test","/Out/Logs/");
+        }
+
+        public void OnEnable()
+        {
+            // イベントの登録
+            Keyboard.current.onTextInput += OnTextInput;
+        }
+        public void OnDisable()
+        {
+            // イベントの登録解除
+            Keyboard.current.onTextInput -= OnTextInput;
+        }
+        public void OnTextInput(char ch)
+        {
+            // 入力した文字を表示
+            Debug.Log($"{(int)ch:x4}");
+            // // backspaceなら文字を削除
+            // if (ch == '\u007F')
+            // {
+            //     TextData.DeleteChar();
+            //     // InputDatumを追加
+            //     inputsStorage.AddInputDatum("Backspace");
+            //     return;
+            // }
+            // // 改行ならLineをLinesに追加して初期化
+            // if (ch == '\u000d')
+            // {
+            //     TextData.NextLine();
+            //     // InputDatumを追加
+            //     inputsStorage.AddInputDatum("Enter");
+            //     return;
+            // }
+            // 基本的なラテン文字なら文字を追加
+            if (Regex.IsMatch(ch.ToString(), @"\p{P}\d") || ch == '\u000d' || ch == '\u007F' || ch == '\u001B' ||
+                ch == '\u0020') return;
+            textData.AddChar(ch);
             // InputDatumを追加
             inputsStorage.AddInputDatum(ch.ToString());
-            return;
         }
-        // // escapeならタスクを終了
-        // if (ch == '\u001B')
-        // {
-        //     TaskManager.Instance.EndTask();
-        //     // InputDatumを追加
-        //     // inputsStorage.AddInputDatum("Escape");
-        //     return;
-        // }
-        // それ以外の文字は無視
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        textMesh.text = TextData.LinesToString();
-        // enterキーで改行
-        if (Keyboard.current.enterKey.wasPressedThisFrame)
+        // Update is called once per frame
+        void Update()
         {
-            TextData.NextLine();
-            // InputDatumを追加
-            inputsStorage.AddInputDatum("Enter");
-        }
-        // backspaceキーで文字を削除
-        if (Keyboard.current.backspaceKey.wasPressedThisFrame)
-        {
-            TextData.DeleteChar();
-            // InputDatumを追加
-            inputsStorage.AddInputDatum("Backspace");
-        }
-        // spaceキーでスペースを追加
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            TextData.AddSpace();
-            // InputDatumを追加
-            inputsStorage.AddInputDatum("Space");
-        }
-        // escapeキーでタスクを終了
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            TaskManager.Instance.EndTask();
+            textMesh.text = textData.LinesToString();
+            // enterキーで改行
+            if (Keyboard.current.enterKey.wasPressedThisFrame)
+            {
+                textData.NextLine();
+                // InputDatumを追加
+                inputsStorage.AddInputDatum("Enter");
+            }
+            // backspaceキーで文字を削除
+            if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+            {
+                textData.DeleteChar();
+                // InputDatumを追加
+                inputsStorage.AddInputDatum("Backspace");
+            }
+            // spaceキーでスペースを追加
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                textData.AddSpace();
+                // InputDatumを追加
+                inputsStorage.AddInputDatum("Space");
+            }
+            // escapeキーでタスクを終了
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                // InputDatumを追加
+                // inputsStorage.AddInputDatum("Escape");
+                // タスクを終了
+                TaskManager.Instance.EndTask();
+            }
         }
     }
 }
