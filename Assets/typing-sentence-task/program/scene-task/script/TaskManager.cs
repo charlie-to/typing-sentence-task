@@ -24,7 +24,7 @@ namespace typing_sentence_task.program.scene_task.script
             Instance = this;
             // TODO  タスクタイマーを作成（テスト用）
             // TODO 後で時間変更を実装
-            _taskTimer = new TaskTimer(1, 1);
+            _taskTimer = new TaskTimer(0, 1);
         }
 
         // Start is called before the first frame update

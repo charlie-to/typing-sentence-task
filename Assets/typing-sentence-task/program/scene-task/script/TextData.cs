@@ -7,7 +7,7 @@ public class TextData
     // 一行の長さ
     static readonly int lineNum = 30;
     // 表示する最大の行数
-    static readonly int MaxLineNum = 12;
+    static readonly int MaxLineNum = 10;
     // 最後の一行
     public string Line { get; set; } = "";
 
