@@ -9,7 +9,7 @@ namespace InputLogs.program
         // 保存するパス
         private string _relativeOutPath;
         // 保存するファイル名
-        public string FileName;
+        public string FileName = "test";
 
         // コンストラクタ
         public InputStorageSaver(string path)

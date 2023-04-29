@@ -14,12 +14,22 @@ namespace typing_sentence_task.program.scene_task.script
 
         // インプットロガーのインスタンス
         public InputsStorage inputsStorage { get; set; }
+        // taskManagerのタイマー
+        public TaskTimer TaskTimer;
 
         void Start()
         {
             textData = new TextData();
             // セーブするためのインスタンスを作成
             inputsStorage = new InputsStorage("InputText", "test","/Out/Logs/");
+            // taskManagerのタイマーを取得
+            TaskManager taskManager = GetComponent<TaskManager>();
+            if (taskManager == null)
+            {
+                Debug.LogError("TaskManagerが見つかりません");
+            }
+            TaskTimer = taskManager._taskTimer;
+            if(TaskTimer == null) Debug.LogError("TaskTimerが見つかりません");
         }
 
         public void OnEnable()
@@ -36,22 +46,10 @@ namespace typing_sentence_task.program.scene_task.script
         {
             // 入力した文字を表示
             Debug.Log($"{(int)ch:x4}");
-            // // backspaceなら文字を削除
-            // if (ch == '\u007F')
-            // {
-            //     TextData.DeleteChar();
-            //     // InputDatumを追加
-            //     inputsStorage.AddInputDatum("Backspace");
-            //     return;
-            // }
-            // // 改行ならLineをLinesに追加して初期化
-            // if (ch == '\u000d')
-            // {
-            //     TextData.NextLine();
-            //     // InputDatumを追加
-            //     inputsStorage.AddInputDatum("Enter");
-            //     return;
-            // }
+            
+            // reading time 中は入力を受け付けない
+            if (!TaskTimer.IsReadTimeOver()) return;
+            
             // 基本的なラテン文字なら文字を追加
             if (Regex.IsMatch(ch.ToString(), @"\p{P}\d") || ch == '\u000d' || ch == '\u007F' || ch == '\u001B' ||
                 ch == '\u0020') return;
@@ -63,27 +61,31 @@ namespace typing_sentence_task.program.scene_task.script
         // Update is called once per frame
         void Update()
         {
-            textMesh.text = textData.LinesToString();
-            // enterキーで改行
-            if (Keyboard.current.enterKey.wasPressedThisFrame)
+            Debug.Log(TaskTimer.IsReadTimeOver());
+            if (TaskTimer.IsReadTimeOver())
             {
-                textData.NextLine();
-                // InputDatumを追加
-                inputsStorage.AddInputDatum("Enter");
-            }
-            // backspaceキーで文字を削除
-            if (Keyboard.current.backspaceKey.wasPressedThisFrame)
-            {
-                textData.DeleteChar();
-                // InputDatumを追加
-                inputsStorage.AddInputDatum("Backspace");
-            }
-            // spaceキーでスペースを追加
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                textData.AddSpace();
-                // InputDatumを追加
-                inputsStorage.AddInputDatum("Space");
+                textMesh.text = textData.LinesToString();
+                // enterキーで改行
+                if (Keyboard.current.enterKey.wasPressedThisFrame)
+                {
+                    textData.NextLine();
+                    // InputDatumを追加
+                    inputsStorage.AddInputDatum("Enter");
+                }
+                // backspaceキーで文字を削除
+                if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+                {
+                    textData.DeleteChar();
+                    // InputDatumを追加
+                    inputsStorage.AddInputDatum("Backspace");
+                }
+                // spaceキーでスペースを追加
+                if (Keyboard.current.spaceKey.wasPressedThisFrame)
+                {
+                    textData.AddSpace();
+                    // InputDatumを追加
+                    inputsStorage.AddInputDatum("Space");
+                }
             }
             // escapeキーでタスクを終了
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
