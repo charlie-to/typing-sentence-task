@@ -8,39 +8,41 @@ namespace typing_sentence_task.program.scene_task.script
         [SerializeField] private InputText inputText;
 
         // タイマー
-        public TaskTimer _taskTimer;
+        public TaskTimer TaskTimer;
 
         // シングルトンを実装
-        public static TaskManager Instance { get; private set; }
+        public static TaskManager instance { get; private set; }
 
         // インスタンスがあれば削除
         private void Awake()
         {
-            if (Instance != null)
+            if (instance != null)
             {
                 return;
             }
-
-            Instance = this;
-            // TODO  タスクタイマーを作成（テスト用）
-            // TODO 後で時間変更を実装
-            _taskTimer = new TaskTimer(0, 1);
+            instance = this;
+            TaskTimer = new TaskTimer();
         }
 
         // Start is called before the first frame update
         void Start()
         {
             inputText = GetComponent<InputText>();
+            Debug.Log(Participant.participantId);
+            // 制限時間をセット
+            // TODO  タスクタイマーを作成（テスト用）
+            // TODO 後で時間変更を実装
+            TaskTimer.SetLimitTime(0,1);
             // タスクタイマーをスタート
-            _taskTimer.Start();
+            TaskTimer.Start();
         }
 
         private void Update()
         {
             // タスクの残り時間を表示する
-            Debug.Log(_taskTimer.GetRemainingTime());
+            Debug.Log(TaskTimer.GetRemainingTime());
             // タスクの時間を管理する
-            if (_taskTimer.IsTimeOver())
+            if (TaskTimer.IsTimeOver())
             {
                 EndTask();
             }

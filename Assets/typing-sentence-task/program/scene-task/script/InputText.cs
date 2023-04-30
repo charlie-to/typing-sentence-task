@@ -21,14 +21,14 @@ namespace typing_sentence_task.program.scene_task.script
         {
             textData = new TextData();
             // セーブするためのインスタンスを作成
-            inputsStorage = new InputsStorage("InputText", "test","/Out/Logs/");
+            inputsStorage = new InputsStorage("Test1", Participant.participantId.ToString(),Participant.outputDir);
             // taskManagerのタイマーを取得
             TaskManager taskManager = GetComponent<TaskManager>();
             if (taskManager == null)
             {
                 Debug.LogError("TaskManagerが見つかりません");
             }
-            TaskTimer = taskManager._taskTimer;
+            TaskTimer = taskManager.TaskTimer;
             if(TaskTimer == null) Debug.LogError("TaskTimerが見つかりません");
         }
 
@@ -93,7 +93,7 @@ namespace typing_sentence_task.program.scene_task.script
                 // InputDatumを追加
                 // inputsStorage.AddInputDatum("Escape");
                 // タスクを終了
-                TaskManager.Instance.EndTask();
+                TaskManager.instance.EndTask();
             }
         }
     }
