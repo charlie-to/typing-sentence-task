@@ -35,7 +35,7 @@ namespace typing_sentence_task.program.scene_task.script
         {
             taskUI = GameObject.Find("Image-task");
             taskUiImage = taskUI.GetComponent<Image>();
-            taskUiImage.sprite = Resources.Load<Sprite>("TaskImage/スライド1");
+            taskUiImage.sprite = Resources.Load<Sprite>("TaskImage/task1");
             // タスクUIの画像を設定
             inputText = GetComponent<InputText>();
             Debug.Log(Participant.participantId);

@@ -86,6 +86,7 @@ namespace InputLogs.program
         public void Save()
         {
             InputStorageSaver.Save(this);
+            Debug.Log("Saved");
         }
     }
 

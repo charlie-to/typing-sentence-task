@@ -26,4 +26,14 @@ public class WaitKey : MonoBehaviour
             SceneManager.LoadScene("scene-task");
         }
     }
+    
+    public void Update()
+    {
+        // 入力がescのときは終了
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            Debug.Log("esc is Pressed");
+            Application.Quit();
+        }
+    }
 }

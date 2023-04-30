@@ -20,12 +20,6 @@ namespace InputLogs.program
         // 保存
         internal void Save(InputsStorage inputsStorage)
         {
-            // // InputStorageがDoneでない場合は保存しない
-            // if (inputsStorage.taskState != TaskState.Done)
-            // {
-            //     return;
-            // }
-            // ファイル名を設定
             // ディレクトリが存在しない場合は作成する
             if (!Directory.Exists(Application.dataPath + _relativeOutPath))
             {
@@ -42,7 +36,7 @@ namespace InputLogs.program
             sw.WriteLine("Task Start:, "+inputsStorage.startTime);
             sw.WriteLine("Task End:, "+inputsStorage.endTime);
             // Dividerを書き込み
-            sw.WriteLine("------, ------");
+            sw.WriteLine("------,------");
             sw.WriteLine("Key, Time");
             
             //インプットデータを書き込み
