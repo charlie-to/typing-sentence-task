@@ -20,12 +20,13 @@ namespace InputLogs.program
         // 保存
         internal void Save(InputsStorage inputsStorage)
         {
+            Debug.LogError(Directory.GetCurrentDirectory());
             // ディレクトリが存在しない場合は作成する
-            if (!Directory.Exists(Application.dataPath + _relativeOutPath))
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + _relativeOutPath))
             {
-                Directory.CreateDirectory(Application.dataPath + _relativeOutPath);
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + _relativeOutPath);
             }
-            FileInfo fi = new FileInfo(Application.dataPath + _relativeOutPath + FileName + ".csv");
+            FileInfo fi = new FileInfo(Directory.GetCurrentDirectory() + _relativeOutPath + FileName + ".csv");
 
             // 書き込み
             var sw = fi.AppendText();
