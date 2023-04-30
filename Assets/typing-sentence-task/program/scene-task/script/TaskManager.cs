@@ -1,6 +1,7 @@
 using InputLogs.program;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace typing_sentence_task.program.scene_task.script
 {
@@ -8,12 +9,14 @@ namespace typing_sentence_task.program.scene_task.script
     {
         // InputTextのインスタンス
         [SerializeField] private InputText inputText;
-
+        // 課題UI
+        [SerializeField] private GameObject taskUI;
+        [SerializeField] Image taskUiImage;
         // タイマー
         public TaskTimer TaskTimer;
 
         // シングルトンを実装
-        public static TaskManager instance { get; private set; }
+        private static TaskManager instance { get; set; }
 
         // インスタンスがあれば削除
         private void Awake()
@@ -29,6 +32,10 @@ namespace typing_sentence_task.program.scene_task.script
         // Start is called before the first frame update
         void Start()
         {
+            taskUI = GameObject.Find("Image-task");
+            taskUiImage = taskUI.GetComponent<Image>();
+            taskUiImage.sprite = Resources.Load<Sprite>("TaskImage/スライド1");
+            // タスクUIの画像を設定
             inputText = GetComponent<InputText>();
             Debug.Log(Participant.participantId);
             // 制限時間をセット

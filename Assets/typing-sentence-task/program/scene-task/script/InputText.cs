@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using InputLogs.program;
 using TMPro;
@@ -18,11 +19,16 @@ namespace typing_sentence_task.program.scene_task.script
         // taskManagerのタイマー
         public TaskTimer TaskTimer;
 
+        private void Awake()
+        {
+            // セーブするためのインスタンスを作成
+            inputsStorage = new InputsStorage("Test1", Participant.participantId.ToString(),Participant.outputDir);
+        }
+
         void Start()
         {
             textData = new TextData();
-            // セーブするためのインスタンスを作成
-            inputsStorage = new InputsStorage("Test1", Participant.participantId.ToString(),Participant.outputDir);
+            
             // taskManagerのタイマーを取得
             TaskManager taskManager = GetComponent<TaskManager>();
             if (taskManager == null)
