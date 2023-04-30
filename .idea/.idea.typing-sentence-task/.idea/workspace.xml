@@ -5,28 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="344063fe-90e8-4146-a4cb-70049da5ef97" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.typing-sentence-task/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.typing-sentence-task/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.typing-sentence-task/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.typing-sentence-task/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputLogs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputLogs/InputLogs.asmdef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputLogs/program/InputDatum.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputLogs/program/InputStorageSaver.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputLogs/program/InputsStrage.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/design/image-task/task-main.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/design/image-task/task1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/design/image-task/スライド1.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/general/Participant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/typing-sentence-task/program/general/participant.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-Wait-Mri/scene-WaitMri.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-Wait-Mri/scene-WaitMri.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-Wait-Mri/script/WaitKey.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-Wait-Mri/script/WaitKey.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-get-id/scripts/SubmitButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-get-id/scripts/SubmitButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-task/scene-task.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-task/scene-task.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-task/script/InputText.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-task/script/InputText.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-task/script/TaskManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-task/script/TaskTimer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-task/script/TextData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/typing-sentence-task/program/scene-task/script/TextData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.typing-sentence-task/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.typing-sentence-task/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +103,7 @@
       <workItem from="1682829084395" duration="16000" />
       <workItem from="1682829103147" duration="4323000" />
       <workItem from="1682833450618" duration="2084000" />
-      <workItem from="1682838726433" duration="634000" />
+      <workItem from="1682838726433" duration="1843000" />
     </task>
     <servers />
   </component>
