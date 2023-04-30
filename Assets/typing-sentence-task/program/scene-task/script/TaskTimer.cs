@@ -10,11 +10,6 @@ namespace typing_sentence_task.program.scene_task.script
         // タスクを行う時間
         public TimeSpan TaskTime;
 
-        public TaskTimer()
-        {
-            
-        }
-        
         public void SetLimitTime(int readTimeMin,int taskTimeMin)
         {
             this.ReadTime = new TimeSpan(0, readTimeMin, 0);

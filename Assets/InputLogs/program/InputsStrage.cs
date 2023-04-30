@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace InputLogs.program
 {
@@ -51,14 +52,20 @@ namespace InputLogs.program
         }
 
         // 計測開始
-        public void Start()
+        public void ReadingStart()
+        {
+            taskState = TaskState.Reading;
+        }
+        // タイピング開始
+        public void TypingStart()
         {
             startTime = DateTime.Now;
-            taskState = TaskState.Running;
+            taskState = TaskState.Typing;
         }
         // 計測終了
         public void End()
         {
+            Debug.Log("End Recording");
             endTime = DateTime.Now;
             taskState = TaskState.Done;
         }
@@ -66,11 +73,20 @@ namespace InputLogs.program
         // InputDatumを追加
         public void AddInputDatum(string k)
         {
+            // タスクがTyping中でない場合は追加しない
+            if (taskState != TaskState.Typing)
+            {
+                return;
+            }
             var inputDatum = new InputDatum(k, DateTime.Now);
             inputDatas.Add(inputDatum);
         }
 
-        // タスクの状態がDoneならtrueを返す
+        // 保存
+        public void Save()
+        {
+            InputStorageSaver.Save(this);
+        }
     }
 
     // タスクの状態を表す列挙型
@@ -79,7 +95,9 @@ namespace InputLogs.program
         // 未実行
         NotYet,
         // 実行中
-        Running,
+        Reading,
+        // 実行中
+        Typing,
         // 実行済み
         Done
     }

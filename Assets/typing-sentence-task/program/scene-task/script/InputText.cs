@@ -3,6 +3,7 @@ using InputLogs.program;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace typing_sentence_task.program.scene_task.script
 {
@@ -92,8 +93,11 @@ namespace typing_sentence_task.program.scene_task.script
             {
                 // InputDatumを追加
                 // inputsStorage.AddInputDatum("Escape");
+                // 計測を終了
+                inputsStorage.End();
+                inputsStorage.Save();
                 // タスクを終了
-                TaskManager.instance.EndTask();
+                SceneManager.LoadScene("scene-WaitMri");
             }
         }
     }

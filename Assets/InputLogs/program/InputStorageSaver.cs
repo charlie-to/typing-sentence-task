@@ -7,7 +7,7 @@ namespace InputLogs.program
     public class InputStorageSaver
     {
         // 保存するパス
-        private string _relativeOutPath;
+        private readonly string _relativeOutPath;
         // 保存するファイル名
         public string FileName = "test";
 
@@ -18,7 +18,7 @@ namespace InputLogs.program
         }
 
         // 保存
-        public void Save(InputsStorage inputsStorage)
+        internal void Save(InputsStorage inputsStorage)
         {
             // // InputStorageがDoneでない場合は保存しない
             // if (inputsStorage.taskState != TaskState.Done)
@@ -35,6 +35,17 @@ namespace InputLogs.program
 
             // 書き込み
             var sw = fi.AppendText();
+            // メタデータを書き込み
+            sw.WriteLine("Participant ID:, "+inputsStorage.ParticipantId);
+            sw.WriteLine("Task Name:, "+inputsStorage.TaskName);
+            // 開始時刻と終了時刻を書き込み
+            sw.WriteLine("Task Start:, "+inputsStorage.startTime);
+            sw.WriteLine("Task End:, "+inputsStorage.endTime);
+            // Dividerを書き込み
+            sw.WriteLine("------, ------");
+            sw.WriteLine("Key, Time");
+            
+            //インプットデータを書き込み
             foreach (InputDatum inputDatum in inputsStorage.inputDatas)
             {
                 sw.WriteLine(inputDatum.key + "," + $"{inputDatum.time:yyyy/MM/dd HH:mm:ss.fff}");

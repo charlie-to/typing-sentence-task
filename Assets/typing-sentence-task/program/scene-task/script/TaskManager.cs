@@ -1,4 +1,6 @@
+using InputLogs.program;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace typing_sentence_task.program.scene_task.script
 {
@@ -35,6 +37,8 @@ namespace typing_sentence_task.program.scene_task.script
             TaskTimer.SetLimitTime(0,1);
             // タスクタイマーをスタート
             TaskTimer.Start();
+            // InputStorageをリーディングに
+            inputText.inputsStorage.ReadingStart();
         }
 
         private void Update()
@@ -42,16 +46,25 @@ namespace typing_sentence_task.program.scene_task.script
             // タスクの残り時間を表示する
             Debug.Log(TaskTimer.GetRemainingTime());
             // タスクの時間を管理する
+            if(TaskTimer.IsReadTimeOver())
+            {
+                if (inputText.inputsStorage.taskState == TaskState.Reading)
+                {
+                    inputText.inputsStorage.TypingStart();
+                }
+            }
             if (TaskTimer.IsTimeOver())
             {
-                EndTask();
+                if (inputText.inputsStorage.taskState == TaskState.Typing)
+                {
+                    Debug.Log("EndTask");
+                    // 計測終了
+                    inputText.inputsStorage.End();
+                    inputText.inputsStorage.Save();
+                    // タスク終了
+                    SceneManager.LoadScene("scene-WaitMri");
+                }
             }
-        }
-
-        public void EndTask()
-        {
-            Debug.Log("EndTask");
-            inputText.inputsStorage.InputStorageSaver.Save(inputText.inputsStorage);
         }
     }
 }
