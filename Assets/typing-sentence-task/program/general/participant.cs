@@ -4,28 +4,12 @@ using UnityEngine;
 using System.Linq;
 
 // 被験者の情報を格納するクラス
-public static class Participant
+public class Participant
 {
-    public static int participantId;
+    public int id; // 被験者のID
 
-    // 
-    public static string outputDir => "/Out/Logs/" + participantId.ToString() + "/";
-    
-    // 被験者番号を設定する
-    public static void SetId(int id)
-    {
-        if (IsValidId(id))
-        {
-            participantId = id;
-        }
-        else
-        {
-            throw new System.Exception("Invalid ID");
-        }
-    }
-
-    //　被験者番号が正しいかどうかをLuan formulaで判定する
-    private static bool IsValidId(int id)
+    //　被験者番号が正しいかどうかをLuhn formulaで判定する
+    public bool IsValidId(int id)
     {
         int sum = 0;
         int _id = (int)(id / 10);
@@ -48,7 +32,7 @@ public static class Participant
                 }
             }
         }
-        // Debug.Log(sum);
+        Debug.Log(sum);
         return sum % 10 == id % 10;
     }
 }
