@@ -1,4 +1,5 @@
 using InputLogs.program;
+using typing_sentence_task.program.general;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

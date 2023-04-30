@@ -1,24 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
 public class TextData
 {
     // 一行の長さ
-    static readonly int lineNum = 45;
+    static readonly int LineNum = 30;
     // 表示する最大の行数
-    static readonly int MaxLineNum = 12;
+    static readonly int MaxLineNum = 10;
     // 最後の一行
-    public string Line { get; set; } = "";
+    public string line { get; set; } = "";
 
     // 最後の一行以外を保管する配列
-    public List<string> Lines { get; set; } = new List<string>(MaxLineNum);
+    public List<string> lines { get; set; } = new List<string>(MaxLineNum);
     // 入力している文字数
-    private int LetterCount { get; set; } = 0;
+    private int letterCount { get; set; } = 0;
+    // Line中の最後の空白の位置
+    private int lastSpaceIndex { get; set; } = 0;
 
 
 
@@ -28,18 +26,39 @@ public class TextData
         //Debug.Log(Line.Length);
 
         // 最後の一行に文字を追加
-        Line += c;
+        line += c;
         // 入力している文字数を増やす
-        LetterCount++;
+        letterCount++;
         // 最後の一行が一行の長さに達したら
-        if (LetterCount == lineNum)
+        if (letterCount >= LineNum)
+        {
+            // 最後の一行の最後の空白までを配列に追加
+            lines.Add(line[..(lastSpaceIndex - 1)]);
+            // 空白以降は残す
+            line = line[(lastSpaceIndex)..];
+            // 入力している文字数は空白以降の文字数にする
+            letterCount -= lastSpaceIndex;
+            Debug.Log(letterCount);
+            // 最後の一行の最後の空白の位置を初期化
+            lastSpaceIndex = 0;
+        }
+    }
+    public void AddSpace()
+    {
+        line += " ";
+        letterCount++;
+        lastSpaceIndex = letterCount;
+        Debug.Log(lastSpaceIndex);
+        if (letterCount >= LineNum)
         {
             // 最後の一行を配列に追加
-            Lines.Add(Line);
+            lines.Add(line[..(lastSpaceIndex - 1)]);
             // 最後の一行を初期化
-            Line = "";
+            line = "";
             // 入力している文字数を初期化
-            LetterCount = 0;
+            letterCount = 0;
+            // 最後の一行の最後の空白の位置を初期化
+            lastSpaceIndex = 0;
         }
     }
 
@@ -47,26 +66,30 @@ public class TextData
     public void DeleteChar()
     {
         // 最後の一行が空の場合
-        if (LetterCount == 0)
+        if (letterCount == 0)
         {
             // 最後の一行を取得
-            Line = Lines[^1];
+            line = lines[^1];
             // 最後の一行を削除
-            Lines.RemoveAt(Lines.Count - 1);
+            lines.RemoveAt(lines.Count - 1);
             // 最後の一行の文字数を取得
-            LetterCount = Line.Length;
+            letterCount = line.Length;
+            // 最後の一行の最後の空白の位置を見つける
+            lastSpaceIndex = line.LastIndexOf(" ");
         }
         // 最後の一行が空でない場合
         else
         {
-            if (LetterCount == 0 && Lines.Count == 0)
+            if (letterCount == 0 && lines.Count == 0)
             {
                 return;
             }
             // 最後の一行の文字数を減らす
-            LetterCount--;
+            letterCount--;
             // 最後の一行の最後の文字を削除
-            Line = Line[..^1];
+            line = line[..^1];
+            // 最後の一行の最後の空白の位置を見つける
+            lastSpaceIndex = line.LastIndexOf(" ");
         }
     }
 
@@ -74,35 +97,34 @@ public class TextData
     public void NextLine()
     {
         // 最後の一行を配列に追加
-        Lines.Add(Line);
+        lines.Add(line);
         // 最後の一行を初期化
-        Line = "";
+        line = "";
         // 入力している文字数を初期化
-        LetterCount = 0;
+        letterCount = 0;
     }
     public string LinesToString()
     {
         string str = "";
         // Debug.Log(Lines.Count);
-        if (Lines.Count != 0)
+        if (lines.Count != 0)
         {
             //DisplayLineを作成
-            var DisplayLines = Lines;
-            if (Lines.Count > MaxLineNum - 1)
+            var displayLines = lines;
+            if (lines.Count > MaxLineNum - 1)
             {
-                DisplayLines = DisplayLines.GetRange(Lines.Count - MaxLineNum + 1, MaxLineNum - 1);
+                displayLines = displayLines.GetRange(lines.Count - MaxLineNum + 1, MaxLineNum - 1);
             }
-            Debug.Log(DisplayLines);
 
-            foreach (var line in DisplayLines)
+            foreach (var line in displayLines)
             {
                 str += line.ToString();
                 str += "\n";
             }
         }
-        if (LetterCount != 0)
+        if (letterCount != 0)
         {
-            string line = Line.ToString()[..LetterCount];
+            string line = this.line.ToString()[..letterCount];
             str += line;
         }
         return str;

@@ -5,7 +5,6 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -283,11 +282,6 @@ PublishScripts/
 !**/[Pp]ackages/packages-lock.json
 # except build/, which is used as an MSBuild target.
 !**/[Pp]ackages/build/
-
-# * Unity generated folders in Packages
-!**/Packages/manifest.json
-!**/Packages/packages-lock.json
-
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/[Pp]ackages/repositories.config
 # NuGet v3's project.json files produces more ignorable files
@@ -614,4 +608,6 @@ Temporary Items
 ### 外部アセットを公開しない
 /Assets/*
 !/Assets/typing-sentence-task*
+!/Assets/InputLogs*
+
 

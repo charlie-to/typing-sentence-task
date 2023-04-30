@@ -2,6 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using InputLogs.program;
 using TMPro;
+using typing_sentence_task.program.general;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
