@@ -5,7 +5,7 @@ using UnityEngine;
 public class TextData
 {
     // 一行の長さ
-    static readonly int LineNum = 30;
+    static readonly int LineNum = 45;
     // 表示する最大の行数
     static readonly int MaxLineNum = 10;
     // 最後の一行
