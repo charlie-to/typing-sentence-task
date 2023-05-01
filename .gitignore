@@ -609,6 +609,6 @@ Temporary Items
 /Assets/*
 !/Assets/typing-sentence-task*
 !/Assets/InputLogs*
-!/Assets/TextMesh Pro/*
+!/Assets/TextMesh Pro*
 
 
