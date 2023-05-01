@@ -45,6 +45,9 @@ namespace InputLogs.program
             {
                 sw.WriteLine(inputDatum.key + "," + $"{inputDatum.time:yyyy/MM/dd HH:mm:ss.fff}");
             }
+            // 終了を書き込み
+            sw.WriteLine("End,------");
+            // ファイルを閉じる
             sw.Flush();
             sw.Close();
         }

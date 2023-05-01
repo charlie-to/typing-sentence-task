@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -11,7 +12,15 @@ public class SubmitButton : MonoBehaviour
     [SerializeField] TMP_InputField inputField;
     // エラーメッセージ
     [SerializeField] TMP_Text errorMessage;
-    
+
+    private void Start()
+    {
+        inputField = GameObject.Find("InputField-ID").GetComponent<TMP_InputField>();
+        errorMessage = GameObject.Find("Text-Warning").GetComponent<TMP_Text>();
+        // 被験者番号の入力欄にフォーカスする
+        inputField.ActivateInputField();
+    }
+
 
     // ボタン押下時の処理
     public void CheckAndGoNextScene()
