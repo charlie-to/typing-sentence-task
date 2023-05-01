@@ -60,7 +60,7 @@ namespace typing_sentence_task.program.scene_task.script
             
             // 基本的なラテン文字なら文字を追加
             if (Regex.IsMatch(ch.ToString(), @"\p{P}\d") || ch == '\u000d' || ch == '\u007F' || ch == '\u001B' ||
-                ch == '\u0020') return;
+                ch == '\u0020'|| ch=='\u0008') return;
             textData.AddChar(ch);
             // InputDatumを追加
             inputsStorage.AddInputDatum(ch.ToString());
