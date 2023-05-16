@@ -5,6 +5,7 @@ using TMPro;
 using typing_sentence_task.program.general;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
 namespace typing_sentence_task.program.scene_task.script
@@ -19,6 +20,12 @@ namespace typing_sentence_task.program.scene_task.script
         public InputsStorage inputsStorage { get; set; }
         // taskManagerのタイマー
         public TaskTimer TaskTimer;
+        
+        // キーボード設定
+        private Keyboard _keyboard;
+        // Japanese IMEの入力を受け取るかどうか
+        public bool isReceiveJapaneseIME = true;
+        
 
         private void Awake()
         {
@@ -30,6 +37,16 @@ namespace typing_sentence_task.program.scene_task.script
         {
             textData = new TextData();
             
+            // キーボードの設定
+            if (isReceiveJapaneseIME)
+            {
+                Input.imeCompositionMode = IMECompositionMode.On; 
+                _keyboard = Keyboard.current;
+                _keyboard.onIMECompositionChange += OnIMECompositionChange;
+                _keyboard.SetIMEEnabled(true);
+                _keyboard.SetIMECursorPosition(new Vector2(100,100));
+            }
+
             // taskManagerのタイマーを取得
             TaskManager taskManager = GetComponent<TaskManager>();
             if (taskManager == null)
@@ -50,6 +67,15 @@ namespace typing_sentence_task.program.scene_task.script
             // イベントの登録解除
             Keyboard.current.onTextInput -= OnTextInput;
         }
+        
+        // japanese IMEの入力を受け取る
+        private void OnIMECompositionChange(IMECompositionString compositionString)
+        {
+            Debug.Log(compositionString);
+        }
+        
+        
+        
         public void OnTextInput(char ch)
         {
             // 入力した文字を表示
