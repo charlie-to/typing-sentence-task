@@ -13,9 +13,9 @@ namespace typing_sentence_task.program.general
         }
         
         // 安静時間
-        public int QuietSeconds => 10;
-        public int ThinkingSeconds => 10;
-        public int TaskSeconds => 30;
+        public int QuietSeconds => 30;
+        public int ThinkingSeconds => 60;
+        public int TaskSeconds => 480;
         
         public bool IsFinished
         {
