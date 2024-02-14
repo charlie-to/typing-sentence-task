@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using typing_sentence_task.program.general;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,7 +24,7 @@ public class WaitKey : MonoBehaviour
         if (ch == '5')
         {
             Debug.Log("5 is Pressed");
-            SceneManager.LoadScene("scene-task");
+            SceneManager.LoadScene("scene-task-wait");
         }
     }
     

@@ -2,7 +2,7 @@ using System;
 
 namespace typing_sentence_task.program.scene_task.script
 {
-    public class TaskTimer
+    public class Timer
     {
         public DateTime StartTime;
         // タスク文を読む時間
@@ -10,10 +10,10 @@ namespace typing_sentence_task.program.scene_task.script
         // タスクを行う時間
         public TimeSpan TaskTime;
 
-        public void SetLimitTime(int readTimeMin,int taskTimeMin)
+        public void SetLimitTime(int readTimeSec,int taskTimeSec)
         {
-            this.ReadTime = new TimeSpan(0, readTimeMin, 0);
-            this.TaskTime = new TimeSpan(0, taskTimeMin, 0);
+            this.ReadTime = new TimeSpan(0, 0, readTimeSec);
+            this.TaskTime = new TimeSpan(0, 0, taskTimeSec);
         }
         
         public void Start()

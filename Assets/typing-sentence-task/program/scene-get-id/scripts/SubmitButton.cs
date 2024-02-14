@@ -1,5 +1,4 @@
 
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -40,6 +39,6 @@ public class SubmitButton : MonoBehaviour
         }
         
         // 被験者番号が正しい場合は次のシーンに遷移する
-        SceneManager.LoadScene("scene-WaitMri");
+        SceneManager.LoadScene("scene-task-choice");
     }
 }

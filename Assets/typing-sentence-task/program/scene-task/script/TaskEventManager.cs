@@ -1,50 +1,65 @@
 using InputLogs.program;
+using TMPro;
 using typing_sentence_task.program.general;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Image = UnityEngine.UIElements.Image;
 
 namespace typing_sentence_task.program.scene_task.script
 {
-    public class TaskManager : MonoBehaviour
+    public class TaskEventManager : MonoBehaviour
     {
         // InputTextのインスタンス
         [SerializeField] private InputText inputText;
         // 課題UI
         [SerializeField] private GameObject taskUI;
-        [SerializeField] Image taskUiImage;
+        [SerializeField] RawImage taskUiImage;
+        // シンキングタイムUI
+        [SerializeField] private TextMeshProUGUI thinkingTimeText;
         // タイマー
-        public TaskTimer TaskTimer;
+        public Timer Timer;
 
         // シングルトンを実装
-        private static TaskManager instance { get; set; }
+        private static TaskEventManager Instance { get; set; }
 
         // インスタンスがあれば削除
         private void Awake()
         {
-            if (instance != null)
+            if (Instance != null)
             {
                 return;
             }
-            instance = this;
-            TaskTimer = new TaskTimer();
+            Instance = this;
+            Timer = new Timer();
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            taskUI = GameObject.Find("Image-task");
-            taskUiImage = taskUI.GetComponent<Image>();
-            taskUiImage.sprite = Resources.Load<Sprite>("TaskImage/task1");
+            taskUI = GameObject.Find("image-task");
+            taskUiImage = taskUI.GetComponent<RawImage>();
+            thinkingTimeText = GameObject.Find("thinking-time").GetComponent<TextMeshProUGUI>();
+            // タスクUIの画像を設定
+            if (TaskManager.NextTaskName == null)
+            {
+                Debug.LogError("TaskManager.NextTaskNameがnullです");
+                taskUiImage.texture = Resources.Load<Texture>("TaskImage/Error");
+            }else
+            {
+                taskUiImage.texture = Resources.Load<Texture>("TaskImage/"+TaskManager.NextTaskName);
+            }
+            taskUiImage.FixAspect();
+            
             // タスクUIの画像を設定
             inputText = GetComponent<InputText>();
             Debug.Log(Participant.participantId);
             // 制限時間をセット
             // TODO  タスクタイマーを作成（テスト用）
             // TODO 後で時間変更を実装
-            TaskTimer.SetLimitTime(0,1);
+            Timer.SetLimitTime(10,60);
             // タスクタイマーをスタート
-            TaskTimer.Start();
+            Timer.Start();
             // InputStorageをリーディングに
             inputText.inputsStorage.ReadingStart();
         }
@@ -52,16 +67,17 @@ namespace typing_sentence_task.program.scene_task.script
         private void Update()
         {
             // タスクの残り時間を表示する
-            Debug.Log(TaskTimer.GetRemainingTime());
+            Debug.Log(Timer.GetRemainingTime());
             // タスクの時間を管理する
-            if(TaskTimer.IsReadTimeOver())
+            if(Timer.IsReadTimeOver())
             {
                 if (inputText.inputsStorage.taskState == TaskState.Reading)
                 {
                     inputText.inputsStorage.TypingStart();
+                    thinkingTimeText.text = "";
                 }
             }
-            if (TaskTimer.IsTimeOver())
+            if (Timer.IsTimeOver())
             {
                 if (inputText.inputsStorage.taskState == TaskState.Typing)
                 {

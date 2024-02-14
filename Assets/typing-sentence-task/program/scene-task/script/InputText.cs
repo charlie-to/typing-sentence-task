@@ -18,7 +18,7 @@ namespace typing_sentence_task.program.scene_task.script
         // インプットロガーのインスタンス
         public InputsStorage inputsStorage { get; set; }
         // taskManagerのタイマー
-        public TaskTimer TaskTimer;
+        public Timer Timer;
 
         private void Awake()
         {
@@ -29,15 +29,15 @@ namespace typing_sentence_task.program.scene_task.script
         void Start()
         {
             textData = new TextData();
-            
+            textMesh = GameObject.Find("text-input").GetComponent<TextMeshProUGUI>();
             // taskManagerのタイマーを取得
-            TaskManager taskManager = GetComponent<TaskManager>();
-            if (taskManager == null)
+            TaskEventManager taskEventManager = GetComponent<TaskEventManager>();
+            if (taskEventManager == null)
             {
                 Debug.LogError("TaskManagerが見つかりません");
             }
-            TaskTimer = taskManager.TaskTimer;
-            if(TaskTimer == null) Debug.LogError("TaskTimerが見つかりません");
+            Timer = taskEventManager.Timer;
+            if(Timer == null) Debug.LogError("TaskTimerが見つかりません");
         }
 
         public void OnEnable()
@@ -56,7 +56,7 @@ namespace typing_sentence_task.program.scene_task.script
             Debug.Log($"{(int)ch:x4}");
             
             // reading time 中は入力を受け付けない
-            if (!TaskTimer.IsReadTimeOver()) return;
+            if (!Timer.IsReadTimeOver()) return;
             
             // 基本的なラテン文字なら文字を追加
             if (Regex.IsMatch(ch.ToString(), @"\p{P}\d") || ch == '\u000d' || ch == '\u007F' || ch == '\u001B' ||
@@ -69,8 +69,8 @@ namespace typing_sentence_task.program.scene_task.script
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(TaskTimer.IsReadTimeOver());
-            if (TaskTimer.IsReadTimeOver())
+            Debug.Log(Timer.IsReadTimeOver());
+            if (Timer.IsReadTimeOver())
             {
                 textMesh.text = textData.LinesToString();
                 // enterキーで改行
