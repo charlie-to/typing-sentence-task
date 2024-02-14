@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace typing_sentence_task.program.general
 {
@@ -21,9 +22,15 @@ namespace typing_sentence_task.program.general
             {
                 new TaskPractice(),
                 new Task1(),
-                new Task2()
-                
+                new Task2(),
+                new Task3(),
+                new Task4()
             };
+        }
+        
+        public static ParticipantTask GetParticipantTask()
+        {
+            return TaskList.FirstOrDefault(task => task.TaskName == NextTaskName);
         }
     }
 }

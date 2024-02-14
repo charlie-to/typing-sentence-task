@@ -18,6 +18,9 @@ namespace typing_sentence_task.program.scene_task.script
         [SerializeField] private TextMeshProUGUI thinkingTimeText;
         // タイマー
         public Timer Timer;
+        
+        // タスク
+        private ParticipantTask _task;
 
         // シングルトンを実装
         private static TaskEventManager Instance { get; set; }
@@ -50,13 +53,13 @@ namespace typing_sentence_task.program.scene_task.script
             }
             taskUiImage.FixAspect();
             
-            // タスクUIの画像を設定
+            // 入力エリア
             inputText = GetComponent<InputText>();
-            Debug.Log(Participant.participantId);
+            
+            // タスクを取得
+            _task = TaskManager.GetParticipantTask();
             // 制限時間をセット
-            // TODO  タスクタイマーを作成（テスト用）
-            // TODO 後で時間変更を実装
-            Timer.SetLimitTime(10,60);
+            Timer.SetLimitTime(_task.ThinkingSeconds,_task.TaskSeconds);
             // タスクタイマーをスタート
             Timer.Start();
             // InputStorageをリーディングに
@@ -85,6 +88,7 @@ namespace typing_sentence_task.program.scene_task.script
                     inputText.InputsStorage.End();
                     inputText.InputsStorage.Save();
                     // タスク終了
+                    _task.IsFinished = true;
                     SceneManager.LoadScene("scene-WaitMri");
                 }
             }
