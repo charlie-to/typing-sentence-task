@@ -1,5 +1,5 @@
+
 using System.Collections;
-using System.Collections.Generic;
 using typing_sentence_task.program.general;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -7,27 +7,40 @@ using UnityEngine.InputSystem;
 
 public class WaitKey : MonoBehaviour
 {
-    public void OnEnable()
+    public void Start()
     {
-        // イベントの登録
-        Keyboard.current.onTextInput += OnTextInput;
-    }
-    public void OnDisable()
-    {
-        // イベントの登録解除
-        Keyboard.current.onTextInput -= OnTextInput;
-    }
-
-    private void OnTextInput(char ch)
-    {
-        // 入力が５の時にシーンを遷移
-        if (ch == '5')
+        var task = TaskManager.GetParticipantTask();
+        if (task == null)
         {
-            Debug.Log("5 is Pressed");
-            SceneManager.LoadScene("scene-task-wait");
+            Debug.LogError("Task is not found");
+            SceneManager.LoadScene("scene-task-choice");
+        }
+        else
+        {
+            // 安静状態を指定時間維持
+            if (task.IsFinished)
+            {
+                StartCoroutine(DelaySceneToChoice(task.QuietSeconds));
+            }
+            else
+            {
+                StartCoroutine(DelaySceneChange(task.QuietSeconds));
+            }
         }
     }
     
+    IEnumerator DelaySceneChange(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene("scene-task");
+    }
+    
+    IEnumerator DelaySceneToChoice(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene("scene-task-choice");
+    }
+
     public void Update()
     {
         // 入力がescのときは終了

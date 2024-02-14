@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 using InputLogs.program;
 using TMPro;
@@ -13,22 +12,22 @@ namespace typing_sentence_task.program.scene_task.script
     {
         public TextMeshProUGUI textMesh;
         //入力したテキスト
-        public TextData textData { get; set; }
+        public TextData TextData { get; set; }
 
         // インプットロガーのインスタンス
-        public InputsStorage inputsStorage { get; set; }
+        public InputsStorage InputsStorage { get; set; }
         // taskManagerのタイマー
         public Timer Timer;
 
         private void Awake()
         {
             // セーブするためのインスタンスを作成
-            inputsStorage = new InputsStorage("Test1", Participant.participantId.ToString(),Participant.outputDir);
+            InputsStorage = new InputsStorage("Test1", Participant.participantId.ToString(),Participant.outputDir);
         }
 
         void Start()
         {
-            textData = new TextData();
+            TextData = new TextData();
             textMesh = GameObject.Find("text-input").GetComponent<TextMeshProUGUI>();
             // taskManagerのタイマーを取得
             TaskEventManager taskEventManager = GetComponent<TaskEventManager>();
@@ -61,9 +60,9 @@ namespace typing_sentence_task.program.scene_task.script
             // 基本的なラテン文字なら文字を追加
             if (Regex.IsMatch(ch.ToString(), @"\p{P}\d") || ch == '\u000d' || ch == '\u007F' || ch == '\u001B' ||
                 ch == '\u0020'|| ch=='\u0008') return;
-            textData.AddChar(ch);
+            TextData.AddChar(ch);
             // InputDatumを追加
-            inputsStorage.AddInputDatum(ch.ToString());
+            InputsStorage.AddInputDatum(ch.ToString());
         }
 
         // Update is called once per frame
@@ -72,27 +71,27 @@ namespace typing_sentence_task.program.scene_task.script
             Debug.Log(Timer.IsReadTimeOver());
             if (Timer.IsReadTimeOver())
             {
-                textMesh.text = textData.LinesToString();
+                textMesh.text = TextData.LinesToString();
                 // enterキーで改行
                 if (Keyboard.current.enterKey.wasPressedThisFrame)
                 {
-                    textData.NextLine();
+                    TextData.NextLine();
                     // InputDatumを追加
-                    inputsStorage.AddInputDatum("Enter");
+                    InputsStorage.AddInputDatum("Enter");
                 }
                 // backspaceキーで文字を削除
                 if (Keyboard.current.backspaceKey.wasPressedThisFrame)
                 {
-                    textData.DeleteChar();
+                    TextData.DeleteChar();
                     // InputDatumを追加
-                    inputsStorage.AddInputDatum("Backspace");
+                    InputsStorage.AddInputDatum("Backspace");
                 }
                 // spaceキーでスペースを追加
                 if (Keyboard.current.spaceKey.wasPressedThisFrame)
                 {
-                    textData.AddSpace();
+                    TextData.AddSpace();
                     // InputDatumを追加
-                    inputsStorage.AddInputDatum("Space");
+                    InputsStorage.AddInputDatum("Space");
                 }
             }
             // escapeキーでタスクを終了
@@ -101,8 +100,8 @@ namespace typing_sentence_task.program.scene_task.script
                 // InputDatumを追加
                 // inputsStorage.AddInputDatum("Escape");
                 // 計測を終了
-                inputsStorage.End();
-                inputsStorage.Save();
+                InputsStorage.End();
+                InputsStorage.Save();
                 // タスクを終了
                 SceneManager.LoadScene("scene-WaitMri");
             }

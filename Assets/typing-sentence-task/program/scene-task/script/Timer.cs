@@ -4,44 +4,44 @@ namespace typing_sentence_task.program.scene_task.script
 {
     public class Timer
     {
-        public DateTime StartTime;
+        private DateTime _startTime;
         // タスク文を読む時間
-        public TimeSpan ReadTime;
+        private TimeSpan _readTime;
         // タスクを行う時間
-        public TimeSpan TaskTime;
+        private TimeSpan _taskTime;
 
         public void SetLimitTime(int readTimeSec,int taskTimeSec)
         {
-            this.ReadTime = new TimeSpan(0, 0, readTimeSec);
-            this.TaskTime = new TimeSpan(0, 0, taskTimeSec);
+            this._readTime = new TimeSpan(0, 0, readTimeSec);
+            this._taskTime = new TimeSpan(0, 0, taskTimeSec);
         }
         
         public void Start()
         {
-            StartTime = DateTime.Now;
+            _startTime = DateTime.Now;
         }
         
         // readTimeの時間が経過したかどうか
         public bool IsReadTimeOver()
         {
             var now = DateTime.Now;
-            var diff = now - StartTime;
-            return diff >= ReadTime;
+            var diff = now - _startTime;
+            return diff >= _readTime;
         }
         
         // 時間切れの場合はtrueを返す
         public bool IsTimeOver()
         {
             var now = DateTime.Now;
-            var diff = now - StartTime;
-            return diff >= ReadTime + TaskTime;
+            var diff = now - _startTime;
+            return diff >= _readTime + _taskTime;
         }
         // 残り時間を返す
         public double GetRemainingTime()
         {
             var now = DateTime.Now;
-            var diff = now - StartTime;
-            return (TaskTime+ReadTime - diff).TotalSeconds;
+            var diff = now - _startTime;
+            return (_taskTime+_readTime - diff).TotalSeconds;
         }
     }
 }

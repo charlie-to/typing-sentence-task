@@ -4,7 +4,6 @@ using typing_sentence_task.program.general;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Image = UnityEngine.UIElements.Image;
 
 namespace typing_sentence_task.program.scene_task.script
 {
@@ -19,6 +18,9 @@ namespace typing_sentence_task.program.scene_task.script
         [SerializeField] private TextMeshProUGUI thinkingTimeText;
         // タイマー
         public Timer Timer;
+        
+        // タスク
+        private ParticipantTask _task;
 
         // シングルトンを実装
         private static TaskEventManager Instance { get; set; }
@@ -51,17 +53,17 @@ namespace typing_sentence_task.program.scene_task.script
             }
             taskUiImage.FixAspect();
             
-            // タスクUIの画像を設定
+            // 入力エリア
             inputText = GetComponent<InputText>();
-            Debug.Log(Participant.participantId);
+            
+            // タスクを取得
+            _task = TaskManager.GetParticipantTask();
             // 制限時間をセット
-            // TODO  タスクタイマーを作成（テスト用）
-            // TODO 後で時間変更を実装
-            Timer.SetLimitTime(10,60);
+            Timer.SetLimitTime(_task.ThinkingSeconds,_task.TaskSeconds);
             // タスクタイマーをスタート
             Timer.Start();
             // InputStorageをリーディングに
-            inputText.inputsStorage.ReadingStart();
+            inputText.InputsStorage.ReadingStart();
         }
 
         private void Update()
@@ -71,21 +73,22 @@ namespace typing_sentence_task.program.scene_task.script
             // タスクの時間を管理する
             if(Timer.IsReadTimeOver())
             {
-                if (inputText.inputsStorage.taskState == TaskState.Reading)
+                if (inputText.InputsStorage.taskState == TaskState.Reading)
                 {
-                    inputText.inputsStorage.TypingStart();
+                    inputText.InputsStorage.TypingStart();
                     thinkingTimeText.text = "";
                 }
             }
             if (Timer.IsTimeOver())
             {
-                if (inputText.inputsStorage.taskState == TaskState.Typing)
+                if (inputText.InputsStorage.taskState == TaskState.Typing)
                 {
                     Debug.Log("EndTask");
                     // 計測終了
-                    inputText.inputsStorage.End();
-                    inputText.inputsStorage.Save();
+                    inputText.InputsStorage.End();
+                    inputText.InputsStorage.Save();
                     // タスク終了
+                    _task.IsFinished = true;
                     SceneManager.LoadScene("scene-WaitMri");
                 }
             }

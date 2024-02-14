@@ -7,7 +7,7 @@ public class TextData
     // 一行の長さ
     static readonly int LineNum = 60;
     // 表示する最大の行数
-    static readonly int MaxLineNum = 9;
+    static readonly int MaxLineNum = 10;
     // 最後の一行
     public string line { get; set; } = "";
 
@@ -93,40 +93,43 @@ public class TextData
         }
     }
 
-    // 改行
-    public void NextLine()
-    {
-        // 最後の一行を配列に追加
-        lines.Add(line);
-        // 最後の一行を初期化
-        line = "";
-        // 入力している文字数を初期化
-        letterCount = 0;
-    }
-    public string LinesToString()
-    {
-        string str = "";
-        // Debug.Log(Lines.Count);
-        if (lines.Count != 0)
+        // 改行
+        public void NextLine()
         {
-            //DisplayLineを作成
-            var displayLines = lines;
-            if (lines.Count > MaxLineNum - 1)
+            // 最後の一行を配列に追加
+            lines.Add(line);
+            // 最後の一行を初期化
+            line = "";
+            // 入力している文字数を初期化
+            letterCount = 0;
+        }
+
+        public string LinesToString()
+        {
+            string str = "";
+            // Debug.Log(lines.Count);
+            if (lines.Count != 0)
             {
-                displayLines = displayLines.GetRange(lines.Count - MaxLineNum + 1, MaxLineNum - 1);
+                //DisplayLineを作成
+                var displayLines = lines;
+                if (lines.Count > MaxLineNum - 1)
+                {
+                    displayLines = displayLines.GetRange(lines.Count - MaxLineNum + 1, MaxLineNum - 1);
+                }
+
+                foreach (var line in displayLines)
+                {
+                    str += line;
+                    str += "\n";
+                }
             }
 
-            foreach (var line in displayLines)
+            if (letterCount != 0)
             {
-                str += line.ToString();
-                str += "\n";
+                string line = this.line[..letterCount];
+                str += line;
             }
+
+            return str;
         }
-        if (letterCount != 0)
-        {
-            string line = this.line.ToString()[..letterCount];
-            str += line;
-        }
-        return str;
-    }
 }
