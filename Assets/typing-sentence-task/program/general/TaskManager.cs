@@ -19,7 +19,10 @@ namespace typing_sentence_task.program.general
         {
             TaskList = new List<ParticipantTask>
             {
-                new Task1()
+                new TaskPractice(),
+                new Task1(),
+                new Task2()
+                
             };
         }
     }

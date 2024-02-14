@@ -11,7 +11,7 @@ public class TaskChoice : MonoBehaviour
     // Go Task1 when pushed button_task1
     public void GoPracticeScene()
     {
-        TaskManager.NextTaskName = "Practice";
+        TaskManager.NextTaskName = "TaskPractice";
         SceneManager.LoadScene("scene-WaitMri");
     }
     
@@ -24,6 +24,18 @@ public class TaskChoice : MonoBehaviour
     public void GoTask2Scene()
     {
         TaskManager.NextTaskName = "Task2";
+        SceneManager.LoadScene("scene-WaitMri");
+    }
+    
+    public void GoTask3Scene()
+    {
+        TaskManager.NextTaskName = "Task3";
+        SceneManager.LoadScene("scene-WaitMri");
+    }
+    
+    public void GoTask4Scene()
+    {
+        TaskManager.NextTaskName = "Task4";
         SceneManager.LoadScene("scene-WaitMri");
     }
 }

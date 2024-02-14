@@ -4,7 +4,6 @@ using typing_sentence_task.program.general;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Image = UnityEngine.UIElements.Image;
 
 namespace typing_sentence_task.program.scene_task.script
 {
@@ -61,7 +60,7 @@ namespace typing_sentence_task.program.scene_task.script
             // タスクタイマーをスタート
             Timer.Start();
             // InputStorageをリーディングに
-            inputText.inputsStorage.ReadingStart();
+            inputText.InputsStorage.ReadingStart();
         }
 
         private void Update()
@@ -71,20 +70,20 @@ namespace typing_sentence_task.program.scene_task.script
             // タスクの時間を管理する
             if(Timer.IsReadTimeOver())
             {
-                if (inputText.inputsStorage.taskState == TaskState.Reading)
+                if (inputText.InputsStorage.taskState == TaskState.Reading)
                 {
-                    inputText.inputsStorage.TypingStart();
+                    inputText.InputsStorage.TypingStart();
                     thinkingTimeText.text = "";
                 }
             }
             if (Timer.IsTimeOver())
             {
-                if (inputText.inputsStorage.taskState == TaskState.Typing)
+                if (inputText.InputsStorage.taskState == TaskState.Typing)
                 {
                     Debug.Log("EndTask");
                     // 計測終了
-                    inputText.inputsStorage.End();
-                    inputText.inputsStorage.Save();
+                    inputText.InputsStorage.End();
+                    inputText.InputsStorage.Save();
                     // タスク終了
                     SceneManager.LoadScene("scene-WaitMri");
                 }
