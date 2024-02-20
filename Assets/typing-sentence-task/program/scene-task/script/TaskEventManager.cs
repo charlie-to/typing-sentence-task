@@ -64,6 +64,8 @@ namespace typing_sentence_task.program.scene_task.script
             Timer.Start();
             // InputStorageをリーディングに
             inputText.InputsStorage.ReadingStart();
+            // タスクの終了フラグをたてる
+            _task.IsFinished = true;
         }
 
         private void Update()
@@ -87,8 +89,6 @@ namespace typing_sentence_task.program.scene_task.script
                     // 計測終了
                     inputText.InputsStorage.End();
                     inputText.InputsStorage.Save();
-                    // タスク終了
-                    _task.IsFinished = true;
                     SceneManager.LoadScene("scene-WaitMri");
                 }
             }

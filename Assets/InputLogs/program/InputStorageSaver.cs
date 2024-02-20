@@ -8,8 +8,6 @@ namespace InputLogs.program
     {
         // 保存するパス
         private readonly string _relativeOutPath;
-        // 保存するファイル名
-        public string FileName = "test";
 
         // コンストラクタ
         public InputStorageSaver(string path)
@@ -20,13 +18,13 @@ namespace InputLogs.program
         // 保存
         internal void Save(InputsStorage inputsStorage)
         {
-            Debug.LogError(Directory.GetCurrentDirectory());
+            Debug.Log(Directory.GetCurrentDirectory());
             // ディレクトリが存在しない場合は作成する
             if (!Directory.Exists(Directory.GetCurrentDirectory() + _relativeOutPath))
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + _relativeOutPath);
             }
-            FileInfo fi = new FileInfo(Directory.GetCurrentDirectory() + _relativeOutPath + FileName + ".csv");
+            FileInfo fi = new FileInfo(Directory.GetCurrentDirectory() + _relativeOutPath + inputsStorage.TaskName + ".csv");
 
             // 書き込み
             var sw = fi.AppendText();

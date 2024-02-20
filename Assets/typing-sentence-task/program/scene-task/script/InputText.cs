@@ -19,10 +19,12 @@ namespace typing_sentence_task.program.scene_task.script
         // taskManagerのタイマー
         public Timer Timer;
 
+        private ParticipantTask _task = TaskManager.GetParticipantTask();
+
         private void Awake()
         {
             // セーブするためのインスタンスを作成
-            InputsStorage = new InputsStorage("Test1", Participant.participantId.ToString(),Participant.outputDir);
+            InputsStorage = new InputsStorage(_task.TaskName, Participant.participantId.ToString(),Participant.outputDir);
         }
 
         void Start()
