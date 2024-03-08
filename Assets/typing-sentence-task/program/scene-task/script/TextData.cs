@@ -23,7 +23,11 @@ public class TextData
     //入力された文字を受け取る
     public void AddChar(char c)
     {
-        //Debug.Log(Line.Length);
+        // 数字は入力画面に反映しない
+        if (char.IsNumber(c))
+        {
+            return;
+        }
 
         // 最後の一行に文字を追加
         line += c;
